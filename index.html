@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="filemanager" ng-controller="mainCtrl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Manager</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+
+    <script src="MyToast.js"></script>
+
+    <script src="main.js"></script>
+
+    <style>
+        /* splash screen */
+        .main-splash {
+            background-color: #fdfdfd; /*#fff;*/
+            width: 100% !important;
+            height: 100% !important;
+            top:0 !important;
+            left: 0 !important;
+            position: fixed;
+            display: none;
+            z-index: 10050;
+            opacity: 0.85;
+            filter: alpha(opacity=80); /* For IE8 and earlier */
+            align-items: center;
+            flex-direction: column; /* centraliza itens flex horizontalmente */
+            justify-content: center; /* centraliza itens flex verticalmente */
+        }
+
+        .show-splash {
+            display: flex !important;
+        }
+
+        .main-splash .load-info {
+            color: aliceblue;
+            font-weight: bold;
+            font-size: 16px;
+            text-decoration: none;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id="loading" class="main-splash">
+        <img src="load-render.gif">
+        <a class="load-info">Carregando... Aguarde</a>
+    </div>
+
+    <section style="width: 65vh; margin: 80px auto;" ng-if="session == ''">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Login de acesso
+            </div>
+            <div class="panel-body">
+                <form name="form">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label for="">Usuário:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="usuario" ng-model="obj.usuario" ng-required="true">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label for="">Senha:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" name="senha" ng-model="obj.senha" ng-required="true">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-footer" style="display: flow-root;">
+                <button class="btn btn-default pull-right" ng-click="acessar(obj)" ng-disabled="form.$invalid">Acessar</button>
+            </div>
+        </div>
+    </section>
+
+    <section ng-if="session != ''" style="width: 60vh;margin: 60px auto;">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="position: relative;">
+                <h2>File Manager</h2>                    
+                <div style="position: absolute;right: 10px;top: 35px;">
+                    {{session.usuario}} <button class="btn btn-default btn-xs" title="Desconectar" ng-click="sair()"><i class="glyphicon glyphicon-log-out"></i></button>
+                </div>
+            </div>
+            <div class="panel-body" style="max-height: 460px;overflow: auto;">
+                <div style="display: flex;
+                flex: 1;
+                padding: 10px;
+                border: 1px solid #2f2fab2b;
+                background: #e5e5e5;">
+                    <label style="flex: 1;display: block;cursor: pointer;font-size: 16px;color: #130d13;">
+                        Arquivos/Diretórios
+                    </label>
+                    <button class="btn btn-default" title="Atualizar Diretório" ng-click="refresh()"><i class="glyphicon glyphicon-refresh"></i></button>
+                </div>
+                <div style="display: flex;flex: 1;
+                padding: 5px;
+                border: 1px solid #2f2fab2b;" 
+                ng-repeat="obj in lista">
+                    <a style="flex: 1;display: block;cursor: pointer; {{(obj.tipo == 'file') ? 'color: #bfbfbf;' : 'color: black;'}}" ng-click="itemClick(obj)">{{obj.arquivo}}</a>
+                    <button class="btn btn-danger btn-xs" ng-if="obj.tipo == 'file'" title="Excluir Arquivo" ng-click="deletarArquivo(obj)"><i class="glyphicon glyphicon-trash"></i></button>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;
+        min-height: 60px;
+        border: 1px solid #dddddd;
+        padding: 10px;">
+            <div ng-repeat="file in fileNames">
+                <p>{{file}}</p>
+            </div>
+            <label for="files">Selecione os arquivos</label>
+            <div>
+                <input id="inputFile" style="display:none;" type="file" multiple onchange="angular.element(this).scope().changeFiles(this)">
+                <!-- <button class="btn btn-default" title="Atualizar Diretório" ng-click="refresh()"><i class="glyphicon glyphicon-refresh"></i></button> -->
+                <button class="btn btn-default" title="Anexar Arquivos" ng-click="anexar()"><i class="glyphicon glyphicon-paperclip"></i></button>
+                <button class="btn btn-default" title="Remover Anexos" ng-click="limpar()"><i class="glyphicon glyphicon-erase"></i></button>
+                <button class="btn btn-default" title="Transferir Arquivos" ng-click="upload()" ng-disabled="filesCopy.length<=0"><i class="glyphicon glyphicon-transfer"></i></button>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
