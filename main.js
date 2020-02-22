@@ -24,7 +24,7 @@ app.controller('mainCtrl', function ($scope, $http, $timeout) {
 
     if (session != null) {
         $scope.session = JSON.parse(session);
-        listar($scope.session.path);
+        listar(null);
     }
 
     $scope.lista = [];
@@ -233,6 +233,7 @@ app.controller('mainCtrl', function ($scope, $http, $timeout) {
     $scope.navegation = [{name: 'raiz', path: $scope.path}];
     function setNavegations () {
         var nav = $scope.path.replace($scope.raiz, '');
+        console.log($scope.raiz);
         var split = nav.split('/');
 
         // reecrevendo
