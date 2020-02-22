@@ -53,6 +53,30 @@
             font-size: 16px;
             text-decoration: none;
         }
+
+        .footer-files {
+            text-align: center;
+            min-height: 60px;
+            border: 1px solid #dddddd;
+            padding: 10px;
+            background: white;
+        }
+
+        @media only screen and (max-width: 760px) {
+            .panel-body {
+                height: 77.5vh !important;
+                max-height: none !important;
+            }
+            section {
+                width: auto !important;
+                margin: auto !important;
+            }
+            .footer-files {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+        }
     </style>
 
 </head>
@@ -126,17 +150,13 @@
                 </div>
             </div>
         </div>
-        <div style="text-align: center;
-        min-height: 60px;
-        border: 1px solid #dddddd;
-        padding: 10px;">
+        <div class="footer-files">
             <div ng-repeat="file in fileNames">
                 <p>{{file}}</p>
             </div>
             <label for="files">Selecione os arquivos</label>
             <div>
                 <input id="inputFile" style="display:none;" type="file" multiple onchange="angular.element(this).scope().changeFiles(this)">
-                <!-- <button class="btn btn-default" title="Atualizar Diretório" ng-click="refresh()"><i class="glyphicon glyphicon-refresh"></i></button> -->
                 <button class="btn btn-default" title="Anexar Arquivos" ng-click="anexar()"><i class="glyphicon glyphicon-paperclip"></i></button>
                 <button class="btn btn-default" title="Remover Anexos" ng-click="limpar()"><i class="glyphicon glyphicon-erase"></i></button>
                 <button class="btn btn-default" title="Transferir Arquivos" ng-click="upload()" ng-disabled="filesCopy.length<=0"><i class="glyphicon glyphicon-transfer"></i></button>
