@@ -8,7 +8,7 @@
     function acessar () {
         // usuário e senha padrão
         $user = "admin";
-        $pass = "@kt0_d3v";
+        $pass = "admin";
         $raiz = $_SERVER['DOCUMENT_ROOT'] . '/vwa';
 
         $data = $_POST['data'];
