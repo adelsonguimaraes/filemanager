@@ -163,7 +163,7 @@ app.controller('mainCtrl', function ($scope, $http, $timeout) {
         $scope.filesCopy = [];
 
         // verificar se temos um cadastro ou uma edição
-        formData.append('class', "authentication");
+        formData.append('path', $scope.path);
         formData.append('metodo', "upload");
 
         var xhttp = new XMLHttpRequest();
