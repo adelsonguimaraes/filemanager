@@ -1,16 +1,17 @@
 <?php
 
+    $raiz = $_SERVER['DOCUMENT_ROOT'] . '/meu_projeto'; // pasta do projeto, caso seja em localhost
+
     if(!$_POST){ $_POST =  file_get_contents ( "php://input" ); }
     if (gettype($_POST) != "array") $_POST = json_decode ($_POST, true);
 
-    $_POST['metodo']();
+    $_POST['metodo']($raiz);
 
-    function acessar () {
+    function acessar ($raiz) {
         // usuário e senha padrão
         $user = "admin";
         $pass = "admin";
-        $raiz = $_SERVER['DOCUMENT_ROOT'] . '/vwa';
-
+        
         $data = $_POST['data'];
 
         $resp = array("success"=>false, "msg"=>"Acesso Negado, Usuário ou senha inválidos!", "data"=>"");
@@ -25,11 +26,10 @@
         echo json_encode($resp);
     }
 
-    function listar () {
-        $raiz = $_SERVER['DOCUMENT_ROOT'] . '/vwa';
+    function listar ($raiz) {
         $path = $raiz;
         if (!empty($_POST['path'])) $path = $_POST['path'];
-        if (!file_exists($path)) $path = $_POST['DOCUMENT_ROOT'];
+        if (!file_exists($path)) $path = $raiz;
 
         $resp = array("success"=>false, "msg"=>"", "data"=>"");
 
@@ -61,7 +61,7 @@
         echo json_encode($resp);
     }
 
-    function upload () {
+    function upload ($raiz) {
         ini_set("post_max_size", "1024M");
         ini_set('memory_limit', '-1');
         ini_set('max_execution_time', 300); //300 seconds = 5 minutes
@@ -75,7 +75,6 @@
             // enviando arquivos
             if (!empty($_FILES)) {
                 
-                $raiz = $_SERVER['DOCUMENT_ROOT'] . '/vwa';
                 $path = $raiz;
                 if (!empty($_POST['path'])) $path = $_POST['path'];
                 $target_dir = $path;
