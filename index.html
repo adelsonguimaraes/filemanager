@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br" ng-app="filemanager" ng-controller="mainCtrl">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <title>File Manager</title>
 
     <!-- Latest compiled and minified CSS -->
@@ -60,6 +62,8 @@
             border: 1px solid #dddddd;
             padding: 10px;
             background: white;
+            max-height: 320px;
+            overflow: auto;
         }
 
         @media only screen and (max-width: 760px) {
@@ -75,6 +79,8 @@
                 position: fixed;
                 bottom: 0;
                 width: 100%;
+                max-height: 100vh;
+                overflow: auto;
             }
         }
     </style>
@@ -157,6 +163,7 @@
             <label for="files">Selecione os arquivos</label>
             <div>
                 <input id="inputFile" style="display:none;" type="file" multiple onchange="angular.element(this).scope().changeFiles(this)">
+                <!-- <button class="btn btn-default" title="Atualizar Diretório" ng-click="refresh()"><i class="glyphicon glyphicon-refresh"></i></button> -->
                 <button class="btn btn-default" title="Anexar Arquivos" ng-click="anexar()"><i class="glyphicon glyphicon-paperclip"></i></button>
                 <button class="btn btn-default" title="Remover Anexos" ng-click="limpar()"><i class="glyphicon glyphicon-erase"></i></button>
                 <button class="btn btn-default" title="Transferir Arquivos" ng-click="upload()" ng-disabled="filesCopy.length<=0"><i class="glyphicon glyphicon-transfer"></i></button>
