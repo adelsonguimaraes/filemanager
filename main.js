@@ -53,6 +53,9 @@ app.controller('mainCtrl', function ($scope, $http, $timeout) {
                     $scope.lista.unshift({arquivo: '..', 'tipo':'goback'});
                 }
             }
+
+            
+            setNavegations();
         }, function errorCallback(response) {
         });
     }
@@ -225,5 +228,27 @@ app.controller('mainCtrl', function ($scope, $http, $timeout) {
     $scope.sair = function () {
         window.sessionStorage.removeItem('sessaoFM');
         window.location.reload();
+    }
+
+    $scope.navegation = [{name: 'raiz', path: $scope.path}];
+    function setNavegations () {
+        var nav = $scope.path.replace($scope.raiz, '');
+        var split = nav.split('/');
+
+        // reecrevendo
+        $scope.navegation = [{name: 'raiz', path: $scope.raiz}];
+
+        for (f of split) {
+            if (f!=''){
+               $scope.navegation.push({
+                   name: f,
+                   path: ($scope.path.substr(0, $scope.path.indexOf(f)) + f)
+               });
+            }
+        }
+    }
+
+    $scope.navegar = function (nav) {
+        listar(nav.path);
     }
 });

@@ -146,8 +146,12 @@
                 background: #e5e5e5;">
                     <label style="flex: 1;display: block;cursor: pointer;font-size: 16px;color: #130d13;">
                         Arquivos/Diretórios
+                        <br><small style="color:#515151; padding:6px;">
+                            <!-- {{path.replace(raiz, 'raiz')}} -->
+                            <a ng-repeat="nav in navegation" title="Navegar para → {{nav.name}}" ng-click="navegar(nav)">{{nav.name}} / </a>
+                        </small>
                     </label>
-                    <button class="btn btn-default" title="Atualizar Diretório" ng-click="refresh()"><i class="glyphicon glyphicon-refresh"></i></button>
+                    <button class="btn btn-default" style="height: 30px;" title="Atualizar Diretório" ng-click="refresh()"><i class="glyphicon glyphicon-refresh"></i></button>
                 </div>
                 <div style="display: flex;flex: 1;
                 padding: 5px;
