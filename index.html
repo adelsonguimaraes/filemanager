@@ -68,12 +68,14 @@
 
         @media only screen and (max-width: 760px) {
             .panel-body {
-                height: 77.5vh !important;
+                height: 100vh !important;
                 max-height: none !important;
+                padding-bottom: 35vh !important
             }
             section {
-                width: auto !important;
                 margin: auto !important;
+                position: fixed !important;
+                width: 100% !important;
             }
             .footer-files {
                 position: fixed;
@@ -121,9 +123,9 @@
                         </div>
                     </div>
                 </form>
-            </div>
-            <div class="panel-footer" style="display: flow-root;">
-                <button class="btn btn-default pull-right" ng-click="acessar(obj)" ng-disabled="form.$invalid">Acessar</button>
+                <div class="btn-group pull-right">
+                    <button class="btn btn-default pull-right" ng-click="acessar(obj)" ng-disabled="form.$invalid">Acessar</button>
+                </div>
             </div>
         </div>
     </section>
