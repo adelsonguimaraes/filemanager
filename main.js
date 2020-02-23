@@ -233,7 +233,6 @@ app.controller('mainCtrl', function ($scope, $http, $timeout) {
     $scope.navegation = [{name: 'raiz', path: $scope.path}];
     function setNavegations () {
         var nav = $scope.path.replace($scope.raiz, '');
-        console.log($scope.raiz);
         var split = nav.split('/');
 
         // reecrevendo
@@ -241,10 +240,21 @@ app.controller('mainCtrl', function ($scope, $http, $timeout) {
 
         for (f of split) {
             if (f!=''){
-               $scope.navegation.push({
-                   name: f,
-                   path: ($scope.path.substr(0, $scope.path.indexOf(f)) + f)
-               });
+                var pathSplit = $scope.path.split('/');
+                var i = pathSplit.indexOf(f);
+                var path = '';
+                for (p of pathSplit) {
+                    if (p != f) {
+                        path += p + '/';
+                    }else{
+                        break;
+                    }
+                }
+                
+                $scope.navegation.push({
+                    name: f,
+                    path: (path + f)
+                });
             }
         }
     }

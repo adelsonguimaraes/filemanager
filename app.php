@@ -2,7 +2,8 @@
 
     // sinalize aqui o nome da pasta onde está o seu projeto
     // caso seja encontrado o sistema navegará até a raiz do projeto
-    $raiz = $_SERVER['DOCUMENT_ROOT'] . '/meu_projeto';
+    $raiz = $_SERVER['DOCUMENT_ROOT'] . 'meu_projeto';
+    if (!file_exists($raiz)) $raiz = $_SERVER['DOCUMENT_ROOT'];
 
     if(!$_POST){ $_POST =  file_get_contents ( "php://input" ); }
     if (gettype($_POST) != "array") $_POST = json_decode ($_POST, true);
@@ -31,10 +32,7 @@
     function listar ($raiz) {
         $path = $raiz;
         if (!empty($_POST['path'])) $path = $_POST['path'];
-        if (!file_exists($path)) {
-            $raiz = $_SERVER['DOCUMENT_ROOT'];
-            $path = $_SERVER['DOCUMENT_ROOT'];
-        }
+        if (!file_exists($path)) $path = $_SERVER['DOCUMENT_ROOT'];
 
         $resp = array("success"=>false, "msg"=>"", "data"=>"");
 
