@@ -202,8 +202,28 @@ app.controller('mainCtrl', function ($scope, $http, $timeout) {
         xhttp.send(formData);
     }
 
+    $scope.baixarArquivo = function() {
+        if (obj.tipo == 'file') {
+            // Simple GET request example:
+            $http({
+                method: 'POST',
+                url: 'app.php',
+                data: {
+                    metodo: 'downloadArquivo',
+                    path: $scope.path + '/' + obj.arquivo
+                }
+            }).then(function successCallback(response) {
+                if (response.data.success) {
+                    MyToast.show('O arquivo '+ obj.arquivo +' foi baixado.', 3);
+                    listar ($scope.path);
+                }
+            }, function errorCallback(response) {
+            });
+        }
+    }
+
     $scope.deletarArquivo = function (obj) {
-        if (obj.tipo = 'file') {
+        if (obj.tipo == 'file') {
             
             if (window.confirm("Confirma a remoção do arquivo " + obj.arquivo + "?")) {
                 // Simple GET request example:
@@ -261,5 +281,49 @@ app.controller('mainCtrl', function ($scope, $http, $timeout) {
 
     $scope.navegar = function (nav) {
         listar(nav.path);
+    }
+
+    $scope.novoDiretorio = function () {
+        var name = window.prompt('Qual o nome do diretório?');
+        if (name!=null) {
+            // Simple GET request example:
+            $http({
+                method: 'POST',
+                url: 'app.php',
+                data: {
+                    metodo: 'criarDiretorio',
+                    path: $scope.path + '/' + name
+                }
+            }).then(function successCallback(response) {
+                if (response.data.success) {
+                    MyToast.show('O diretório '+ name +' foi criado.', 3);
+                    listar ($scope.path);
+                }
+            }, function errorCallback(response) {
+            });
+        }
+    }
+
+    $scope.deletarDiretorio = function (obj) {
+        if (obj.tipo == 'dir') {
+            
+            if (window.confirm("Confirma a remoção do diretório " + obj.arquivo + "?")) {
+                // Simple GET request example:
+                $http({
+                    method: 'POST',
+                    url: 'app.php',
+                    data: {
+                        metodo: 'deletarDiretorio',
+                        path: $scope.path + '/' + obj.arquivo
+                    }
+                }).then(function successCallback(response) {
+                    if (response.data.success) {
+                        MyToast.show('O diretório '+ obj.arquivo +' foi removido.', 3);
+                        listar ($scope.path);
+                    }
+                }, function errorCallback(response) {
+                });
+            }
+        }
     }
 });

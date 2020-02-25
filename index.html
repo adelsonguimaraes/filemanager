@@ -147,18 +147,22 @@
                     <label style="flex: 1;display: block;cursor: pointer;font-size: 16px;color: #130d13;">
                         Arquivos/Diretórios
                         <br><small style="color:#515151; padding:6px;">
-                            <!-- {{path.replace(raiz, 'raiz')}} -->
                             <a ng-repeat="nav in navegation" title="Navegar para → {{nav.name}}" ng-click="navegar(nav)">{{nav.name}} / </a>
                         </small>
+                        <div>
+                            <input type="text" class="form-control" name="filter" ng-model="filter" placeholder="Filtro">
+                        </div>
                     </label>
                     <button class="btn btn-default" style="height: 30px;" title="Atualizar Diretório" ng-click="refresh()"><i class="glyphicon glyphicon-refresh"></i></button>
                 </div>
                 <div style="display: flex;flex: 1;
                 padding: 5px;
                 border: 1px solid #2f2fab2b;" 
-                ng-repeat="obj in lista">
+                ng-repeat="obj in lista | filter:filter">
                     <a style="flex: 1;display: block;cursor: pointer; {{(obj.tipo == 'file') ? 'color: #bfbfbf;' : 'color: black;'}}" ng-click="itemClick(obj)">{{obj.arquivo}}</a>
-                    <button class="btn btn-danger btn-xs" ng-if="obj.tipo == 'file'" title="Excluir Arquivo" ng-click="deletarArquivo(obj)"><i class="glyphicon glyphicon-trash"></i></button>
+                    <a href="{{obj.path+'/'+obj.arquivo}}" class="btn btn-default btn-xs" ng-if="obj.tipo == 'file'" title="Baixar Arquivo" download><i class="glyphicon glyphicon-cloud-download"></i></a>
+                    <button class="btn btn-danger btn-xs" ng-if="obj.tipo == 'file'" title="Excluir Arquivo" ng-click="deletarArquivo(obj)"><i class="glyphicon glyphicon-trash"></i></a>
+                    <button class="btn btn-warning btn-xs" ng-if="obj.tipo == 'dir'" title="Excluir Diretório" ng-click="deletarDiretorio(obj)"><i class="glyphicon glyphicon-trash"></i></button>
                 </div>
             </div>
         </div>
@@ -169,7 +173,7 @@
             <label for="files">Selecione os arquivos</label>
             <div>
                 <input id="inputFile" style="display:none;" type="file" multiple onchange="angular.element(this).scope().changeFiles(this)">
-                <!-- <button class="btn btn-default" title="Atualizar Diretório" ng-click="refresh()"><i class="glyphicon glyphicon-refresh"></i></button> -->
+                <button class="btn btn-default" style="height: 30px;" title="Novo Diretório" ng-click="novoDiretorio()"><i class="glyphicon glyphicon-plus"></i></button>
                 <button class="btn btn-default" title="Anexar Arquivos" ng-click="anexar()"><i class="glyphicon glyphicon-paperclip"></i></button>
                 <button class="btn btn-default" title="Remover Anexos" ng-click="limpar()"><i class="glyphicon glyphicon-erase"></i></button>
                 <button class="btn btn-default" title="Transferir Arquivos" ng-click="upload()" ng-disabled="filesCopy.length<=0"><i class="glyphicon glyphicon-transfer"></i></button>
