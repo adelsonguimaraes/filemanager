@@ -2,7 +2,7 @@
 
     // sinalize aqui o nome da pasta onde está o seu projeto
     // caso seja encontrado o sistema navegará até a raiz do projeto
-    $raiz = $_SERVER['DOCUMENT_ROOT'] . '/vwa';
+    $raiz = $_SERVER['DOCUMENT_ROOT'] . '/meu_projeto';
     if (!file_exists($raiz)) $raiz = $_SERVER['DOCUMENT_ROOT'];
 
     if(!$_POST){ $_POST =  file_get_contents ( "php://input" ); }
