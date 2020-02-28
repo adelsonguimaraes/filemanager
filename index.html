@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>File Manager</title>
+    <title>Gerenciador de Arquivos</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -64,6 +64,10 @@
             background: white;
             max-height: 320px;
             overflow: auto;
+
+            position: fixed;
+            width: 100%;
+            bottom: 0;
         }
 
         @media only screen and (max-width: 760px) {
@@ -130,39 +134,51 @@
         </div>
     </section>
 
-    <section ng-if="session != ''" style="width: 60vh;margin: 60px auto;">
+    <section ng-if="session != ''" style="width: 100%;margin: 0 auto;">
         <div class="panel panel-default">
             <div class="panel-heading" style="position: relative;">
-                <h2>File Manager</h2>                    
+                <h2 style="font-size:23px;">Gerenciador de Arquivos</h2>                    
                 <div style="position: absolute;right: 10px;top: 35px;">
                     {{session.usuario}} <button class="btn btn-default btn-xs" title="Desconectar" ng-click="sair()"><i class="glyphicon glyphicon-log-out"></i></button>
                 </div>
             </div>
-            <div class="panel-body" style="max-height: 460px;overflow: auto;">
-                <div style="display: flex;
-                flex: 1;
-                padding: 10px;
-                border: 1px solid #2f2fab2b;
-                background: #e5e5e5;">
-                    <label style="flex: 1;display: block;cursor: pointer;font-size: 16px;color: #130d13;">
-                        Arquivos/Diretórios
-                        <br><small style="color:#515151; padding:6px;">
-                            <a ng-repeat="nav in navegation" title="Navegar para → {{nav.name}}" ng-click="navegar(nav)">{{nav.name}} / </a>
-                        </small>
-                        <div>
-                            <input type="text" class="form-control" name="filter" ng-model="filter" placeholder="Filtro">
+            <div class="panel-body" style="padding: 0px;">
+
+                <div class="row_">
+                    <div class="col-sm-6" style="height: 82vh; overflow: auto; padding: 15px;">
+                        <div style="display: flex;
+                        flex: 1;
+                        padding: 10px;
+                        border: 1px solid #2f2fab2b;
+                        background: #e5e5e5;">
+                            <label style="flex: 1;display: block;cursor: pointer;font-size: 16px;color: #130d13;">
+                                Arquivos/Diretórios
+                                <br><small style="color:#515151; padding:6px;">
+                                    <a ng-repeat="nav in navegation" title="Navegar para → {{nav.name}}" ng-click="navegar(nav)">{{nav.name}} / </a>
+                                </small>
+                                <div>
+                                    <input type="text" class="form-control" name="filter" ng-model="filter" placeholder="Filtro">
+                                </div>
+                            </label>
+                            <button class="btn btn-default" style="height: 30px;" title="Atualizar Diretório" ng-click="refresh()"><i class="glyphicon glyphicon-refresh"></i></button>
                         </div>
-                    </label>
-                    <button class="btn btn-default" style="height: 30px;" title="Atualizar Diretório" ng-click="refresh()"><i class="glyphicon glyphicon-refresh"></i></button>
-                </div>
-                <div style="display: flex;flex: 1;
-                padding: 5px;
-                border: 1px solid #2f2fab2b;" 
-                ng-repeat="obj in lista | filter:filter">
-                    <a style="flex: 1;display: block;cursor: pointer; {{(obj.tipo == 'file') ? 'color: #bfbfbf;' : 'color: black;'}}" ng-click="itemClick(obj)">{{obj.arquivo}}</a>
-                    <a href="{{obj.path+'/'+obj.arquivo}}" class="btn btn-default btn-xs" ng-if="obj.tipo == 'file'" title="Baixar Arquivo" download><i class="glyphicon glyphicon-cloud-download"></i></a>
-                    <button class="btn btn-danger btn-xs" ng-if="obj.tipo == 'file'" title="Excluir Arquivo" ng-click="deletarArquivo(obj)"><i class="glyphicon glyphicon-trash"></i></a>
-                    <button class="btn btn-warning btn-xs" ng-if="obj.tipo == 'dir'" title="Excluir Diretório" ng-click="deletarDiretorio(obj)"><i class="glyphicon glyphicon-trash"></i></button>
+                        <div style="display: flex;flex: 1;
+                        padding: 5px;
+                        border: 1px solid #2f2fab2b;" 
+                        ng-repeat="obj in lista | filter:filter">
+                            <a style="flex: 1;display: block;cursor: pointer; {{(obj.tipo == 'file') ? 'color: #bfbfbf;' : 'color: black;'}}" ng-click="itemClick(obj)">{{obj.arquivo}}</a>
+                            <a href="{{obj.path+'/'+obj.arquivo}}" class="btn btn-default btn-xs" ng-if="obj.tipo == 'file'" title="Baixar Arquivo" download><i class="glyphicon glyphicon-cloud-download"></i></a>
+                            <button class="btn btn-danger btn-xs" ng-if="obj.tipo == 'file'" title="Excluir Arquivo" ng-click="deletarArquivo(obj)"><i class="glyphicon glyphicon-trash"></i></a>
+                            <button class="btn btn-warning btn-xs" ng-if="obj.tipo == 'dir'" title="Excluir Diretório" ng-click="deletarDiretorio(obj)"><i class="glyphicon glyphicon-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" style="height: 82vh; overflow: auto; background: antiquewhite; padding: 15px;">
+                        <h3>Histórico de Log</h3>
+                        <span ng-if="log.length<=0">Nenhum log foi registrado</span>
+                        <div ng-repeat="obj in log track by $index">
+                            {{obj}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
