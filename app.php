@@ -55,7 +55,7 @@
         $resp = array("success"=>false, "msg"=>"", "data"=>"");
 
         $files = scandir($path);
-        
+
         // separando pastas de arquivos
         $a = array(); // arquivos
         $p = array(); // pastas
@@ -73,6 +73,10 @@
         }
         // mesclando pastas e arquivos
         $files = array_merge($p, $a);
+
+        // salvando o log
+        $resp = updateLog("Diretório '$path' → navegando.");
+        if ($resp['success']==false) die(json_encode($resp));
 
         $resp['success'] = true;
         $resp['path'] = $path;

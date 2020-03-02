@@ -1,0 +1,19 @@
+02/03/2020 01:54:24 - Acesso ao sistema → permitido.
+02/03/2020 01:54:24 - Diretório 'C:/xampp/htdocs' → navegando.
+02/03/2020 01:54:29 - Diretório 'C:/xampp/htdocs/filemanager' → navegando.
+02/03/2020 01:54:32 - Diretório 'C:/xampp/htdocs' → navegando.
+02/03/2020 01:54:34 - Diretório 'C:/xampp/htdocs/incubus' → navegando.
+02/03/2020 01:54:36 - Diretório 'C:/xampp/htdocs/incubus/api' → navegando.
+02/03/2020 01:54:37 - Diretório 'C:/xampp/htdocs/incubus/api/src' → navegando.
+02/03/2020 01:54:38 - Diretório 'C:/xampp/htdocs/incubus/api/src/email' → navegando.
+02/03/2020 01:54:42 - Diretório 'C:/xampp/htdocs/incubus/api/src' → navegando.
+02/03/2020 01:54:44 - Diretório 'C:/xampp/htdocs/incubus' → navegando.
+02/03/2020 01:54:47 - Diretório 'C:/xampp/htdocs' → navegando.
+02/03/2020 01:57:40 - Diretório 'C:/xampp/htdocs/wga' → navegando.
+02/03/2020 01:57:44 - Diretório 'C:/xampp/htdocs/wga/app' → navegando.
+02/03/2020 01:57:48 - Diretório 'C:/xampp/htdocs/wga/app/views' → navegando.
+02/03/2020 01:57:50 - Diretório 'C:/xampp/htdocs/wga/app/views/common' → navegando.
+02/03/2020 01:57:53 - Diretório 'C:/xampp/htdocs/wga/app/views' → navegando.
+02/03/2020 01:57:54 - Diretório 'C:/xampp/htdocs/wga/app' → navegando.
+02/03/2020 01:57:55 - Diretório 'C:/xampp/htdocs/wga' → navegando.
+02/03/2020 01:57:55 - Diretório 'C:/xampp/htdocs' → navegando.

@@ -25,7 +25,7 @@ app.controller('mainCtrl', function ($scope, $http, $timeout) {
     if (session != null) {
         $scope.session = JSON.parse(session);
         listar(null);
-        getLog();
+        // getLog();
     }
 
     $scope.lista = [];
@@ -55,7 +55,7 @@ app.controller('mainCtrl', function ($scope, $http, $timeout) {
                 }
             }
 
-            
+            getLog();
             setNavegations();
         }, function errorCallback(response) {
         });
@@ -88,18 +88,18 @@ app.controller('mainCtrl', function ($scope, $http, $timeout) {
 
     $scope.refresh = function () {
         listar ($scope.path);
-        getLog();
+        // getLog();
     }
 
     $scope.itemClick = function (obj) {
         if (obj.tipo == 'dir') {
             listar ($scope.path + '/' + obj.arquivo);
-            getLog();
+            // getLog();
         }
         if (obj.tipo == 'goback') {
             $scope.path = $scope.path.substr(0, $scope.path.lastIndexOf('/'));
             listar ($scope.path);
-            getLog();
+            // getLog();
         }
     }
 
@@ -181,7 +181,7 @@ app.controller('mainCtrl', function ($scope, $http, $timeout) {
                 if (response.success) {
                     MyToast.show('Arquivos enviados com sucesso.', 3);
                     listar ($scope.path);
-                    getLog();
+                    // getLog();
                 } else {
                     alert(response.msg);
                 }
@@ -221,7 +221,7 @@ app.controller('mainCtrl', function ($scope, $http, $timeout) {
                 if (response.data.success) {
                     MyToast.show('O arquivo '+ obj.arquivo +' foi baixado.', 3);
                     listar ($scope.path);
-                    getLog();
+                    // getLog();
                 }
             }, function errorCallback(response) {
             });
@@ -244,7 +244,7 @@ app.controller('mainCtrl', function ($scope, $http, $timeout) {
                     if (response.data.success) {
                         MyToast.show('O arquivo '+ obj.arquivo +' foi removido.', 3);
                         listar ($scope.path);
-                        getLog();
+                        // getLog();
                     }
                 }, function errorCallback(response) {
                 });
@@ -305,7 +305,7 @@ app.controller('mainCtrl', function ($scope, $http, $timeout) {
                 if (response.data.success) {
                     MyToast.show('O diretório '+ name +' foi criado.', 3);
                     listar ($scope.path);
-                    getLog();
+                    // getLog();
                 }
             }, function errorCallback(response) {
             });
@@ -328,7 +328,7 @@ app.controller('mainCtrl', function ($scope, $http, $timeout) {
                     if (response.data.success) {
                         MyToast.show('O diretório '+ obj.arquivo +' foi removido.', 3);
                         listar ($scope.path);
-                        getLog();
+                        // getLog();
                     }
                 }, function errorCallback(response) {
                 });
