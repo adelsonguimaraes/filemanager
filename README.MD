@@ -24,7 +24,7 @@ Para rodar esse projeto após fazer o clone, é necessário ter o ambiente PHP c
 Importante que o local onde você colocar seu projeto tenha permissões para escrever nas pastas, pois o PHP precisa para manipulação dos arquivos.
 
 ## Configurações
-Altere em `app.pp` as informações de senha e o nome da sua pasta de projeto.
+Altere em `app.php` as informações de senha e o nome da sua pasta de projeto.
 
 ```php
 // altere para o nome da pasta do seu projeto
